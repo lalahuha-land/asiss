@@ -10,7 +10,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import { ContentProvider } from '@/lib/ContentContext';
 import Admin from '@/pages/Admin';
 
-const { Pages, Layout, mainPage } = pagesConfig;
+const { Pages, Layout, mainPage } = pagesConfig as any;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
 const MainPage = mainPageKey ? Pages[mainPageKey] : null;
 
@@ -53,7 +53,7 @@ const AuthenticatedApp = () => {
           {MainPage ? <MainPage /> : null}
         </LayoutWrapper>
       } />
-      {Object.entries(Pages).map(([path, Page]) => (
+      {Object.entries(Pages as Record<string, any>).map(([path, Page]) => (
         <Route
           key={path}
           path={`/${path}`}
