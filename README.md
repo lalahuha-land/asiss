@@ -1,6 +1,6 @@
 # asiss official website
 
-A React + Vite marketing site for asiss.my. The app renders a rich landing page with animated sections, service details, testimonials, pricing, and a multi-step contact flow, plus a lightweight auth gate deployments.
+A React + Vite marketing site for asiss.my. The app renders a rich landing page with animated sections, service details, testimonials, pricing, and a multi-step contact flow.
 
 **Features**
 - Responsive landing experience with distinct desktop and mobile behavior
@@ -9,9 +9,10 @@ A React + Vite marketing site for asiss.my. The app renders a rich landing page 
 - Testimonials carousel and brand logo strip
 - Pricing tiers with hover states and clear CTAs
 - Multi-step contact questionnaire with progress, animations, and summary
+- WhatsApp + Email CTAs with prefilled message on submit
 - Scroll-to-top floating action button
-- App-level auth/public settings check
 - Toast UI support via shared components
+- Supabase-backed CMS with hidden admin editor
 
 **Tech Stack**
 - React 19 + Vite 7
@@ -29,27 +30,20 @@ A React + Vite marketing site for asiss.my. The app renders a rich landing page 
 - `src/pages.config.js` auto-generated page registry and `mainPage` selector
 - `src/components` marketing sections and shared UI
 - `src/components/ui` reusable UI primitives (toast, tooltip, toggle, etc.)
-- `src/lib` auth context, query client, app params, and utilities
-- `src/api` client setup
+- `src/lib` query client, CMS, and utilities
+- `src/content` CMS defaults
+- `supabase` SQL schema
 
 **Routing**
 Pages are auto-registered from `src/pages` into `src/pages.config.js`. The landing page is controlled by the `mainPage` key in `src/pages.config.js`. `src/App.tsx` maps those pages to routes and wraps them with an optional layout.
 
-**Auth**
-Authentication and public settings checks run inside `src/lib/AuthContext.jsx`, which calls endpoints and handles `auth_required` and `user_not_registered` states. App parameters are sourced by `src/lib/app-params.js` from query params and `localStorage`.
-
 **Environment Variables**
 Define these for local development or deployment:
-- `VITE_BASE44_APP_ID`
-- `VITE_BASE44_FUNCTIONS_VERSION`
-- `VITE_BASE44_APP_BASE_URL`
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
 - `VITE_ADMIN_PASSPHRASE`
 
 Use `.env.example` as a template. Do not commit `.env`.
-
-The app also supports an `access_token` query param that is stored in `localStorage` and used by the client.
 
 **CMS (Supabase)**
 - Hidden admin route: `/admin`
@@ -57,6 +51,11 @@ The app also supports an `access_token` query param that is stored in `localStor
 - Optional passphrase gate via `VITE_ADMIN_PASSPHRASE`
 - Content storage: `public.site_content` (JSON)
 - SQL schema: `supabase/schema.sql`
+
+**SEO**
+- `public/robots.txt`
+- `public/sitemap.xml`
+- Meta tags set in `index.html` (title, description, canonical, Open Graph, Twitter)
 
 **Security Notes**
 - `public.site_content` is public-read by design. Do not store secrets there.
@@ -68,4 +67,4 @@ The app also supports an `access_token` query param that is stored in `localStor
 - `npm run preview` preview the production build
 
 **Notes**
-- The UI uses Framer Motion and the Base44 SDK; if you see module-not-found errors, ensure `framer-motion` and `@base44/sdk` are installed.
+- The UI uses Framer Motion; ensure `framer-motion` is installed.

@@ -17,10 +17,6 @@ declare module '@/lib/queryClient' {
   export const queryClientInstance: any;
 }
 
-declare module '@/lib/AuthContext' {
-  export const AuthProvider: React.ComponentType<any>;
-  export const useAuth: () => any;
-}
 
 declare module '@/lib/ContentContext' {
   export const ContentProvider: React.ComponentType<any>;
