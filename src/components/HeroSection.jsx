@@ -363,17 +363,22 @@ export default function HeroSection({ onNavigate }) {
             <span className="font-bold text-xl text-gray-900">{brand.name || 'Asiss'}</span>
           </div>
           <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-4">
-            {(hero.heroTitle || 'We build software that scales with you').split(' that ').map((part, idx) => (
-              <React.Fragment key={idx}>
-                {part}
-                {idx === 0 ? <br /> : null}
-                {idx === 0 ? (
-                  <span style={{ background: 'linear-gradient(90deg, #7c3aed, #0891b2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    {`that ${hero.heroTitle?.split(' that ')[1] || 'scales with you'}`}
-                  </span>
-                ) : null}
-              </React.Fragment>
-            ))}
+            {(() => {
+              const title = hero.heroTitle || 'We build software that scales with you';
+              const parts = title.split(' that ');
+              if (parts.length > 1) {
+                return (
+                  <>
+                    {parts[0]}
+                    <br />
+                    <span style={{ background: 'linear-gradient(90deg, #7c3aed, #0891b2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      {`that ${parts.slice(1).join(' that ')}`}
+                    </span>
+                  </>
+                );
+              }
+              return title;
+            })()}
           </h1>
           <p className="text-base text-gray-500 mb-8 max-w-sm mx-auto">
             {hero.heroBody || 'From idea to deployment — we design, engineer, and deliver modern software solutions.'}
